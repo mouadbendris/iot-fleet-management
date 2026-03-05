@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: neofleet-postgres
+    environment:
+      POSTGRES_USER: fleet_admin
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: neofleet_db
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: neofleet-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@neofleet.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres-db
