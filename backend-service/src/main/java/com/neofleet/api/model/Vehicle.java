@@ -1,73 +1,50 @@
 package com.neofleet.api.model;
-import jakarta.persistence.*;
 
-@Entity // Le dice a Java: "Oye, esto no es una clase normal, es una tabla de base de datos"
-@Table(name = "vehicles") // Le decimos exactamente cómo se llama la tabla en PostgreSQL
+import jakarta.persistence.*;
+import java.util.UUID;
+
+@Entity
+@Table(name = "vehicles")
 public class Vehicle {
 
-    @Id // Le dice que este es el identificador principal
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Le dice que el ID se genera solo (como el SERIAL en SQL)
-    private Long id;
+    @Id
+    private UUID id; // Tu script usa UUID, no Long
 
-    private String vin;
-    private String brand;
+    @Column(name = "plate_number")
+    private String plateNumber;
+
     private String model;
 
-    @Column(name = "manufacture_year") // Como en SQL tiene guión bajo, le ayudamos a traducirlo
-    private Integer manufactureYear;
+    @Column(name = "image_url")
+    private String imageUrl;
 
-    @Column(name = "license_plate")
-    private String licensePlate;
+    private String status;
 
-    // 🛠️ Constructor vacío (Es obligatorio para que Spring Boot no explote)
-    public Vehicle() {
-    }
+    @Column(name = "battery_capacity_kwh")
+    private Integer batteryCapacityKwh;
 
-    public String getVin() {
-        return vin;
-    }
+    @Column(name = "last_battery")
+    private Integer lastBattery;
 
-    public void setVin(String vin) {
-        this.vin = vin;
-    }
+    // Constructor vacío obligatorio
+    public Vehicle() {}
 
-    public Long getId() {
-        return id;
-    }
+    // --- GETTERS Y SETTERS (Importante: Genéralos de nuevo si puedes o usa estos) ---
+    public UUID getId() { return id; }
+    public void setId(UUID id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getPlateNumber() { return plateNumber; }
+    public void setPlateNumber(String plateNumber) { this.plateNumber = plateNumber; }
 
-    public String getBrand() {
-        return brand;
-    }
+    public String getModel() { return model; }
+    public void setModel(String model) { this.model = model; }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public String getModel() {
-        return model;
-    }
+    public Integer getBatteryCapacityKwh() { return batteryCapacityKwh; }
+    public void setBatteryCapacityKwh(Integer batteryCapacityKwh) { this.batteryCapacityKwh = batteryCapacityKwh; }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public Integer getManufactureYear() {
-        return manufactureYear;
-    }
-
-    public void setManufactureYear(Integer manufactureYear) {
-        this.manufactureYear = manufactureYear;
-    }
-
-    public String getLicensePlate() {
-        return licensePlate;
-    }
-
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
-    }
+    public Integer getLastBattery() { return lastBattery; }
+    public void setLastBattery(Integer lastBattery) { this.lastBattery = lastBattery; }
 }
